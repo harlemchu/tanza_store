@@ -72,7 +72,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Code Details'),
+        title: const Text('Product Details'),
         actions: [
           IconButton(onPressed: _edit, icon: const Icon(Icons.edit)),
           IconButton(onPressed: _delete, icon: const Icon(Icons.delete)),
@@ -83,47 +83,63 @@ class _DetailsScreenState extends State<DetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
-              child: Container(
-                width: 200,
-                height: 200,
+            // Center(
+            //   child: Container(
+            //     width: 200,
+            //     height: 200,
+            //     decoration: BoxDecoration(
+            //       border: Border.all(
+            //         color: Colors.blue,
+            //         width: 1,
+            //       ),
+            //       borderRadius: BorderRadius.circular(12),
+            //     ),
+            //     child: Image.asset(
+            //       'assets/images/my_image.png',
+            //       width: 500,
+            //       height: 500,
+            //       fit: BoxFit.cover,
+            //       errorBuilder: (context, error, stackTrace) =>
+            //           const Icon(Icons.error),
+            //     ),
+            //   ),
+            // ),
+            const Divider(),
+            ListTile(
+              leading: Container(
+                width: 50,
+                height: 50,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.blue,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.blue, width: 1),
                 ),
                 child: Image.asset(
                   'assets/images/my_image.png',
-                  width: 500,
-                  height: 500,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) =>
-                      const Icon(Icons.error),
+                      const Icon(Icons.image_not_supported),
                 ),
               ),
-            ),
-            const Divider(),
-            ListTile(
               title: Text(
                 _item.name,
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              subtitle: Text(
-                  '${_item.code}  |  ${_item.price != null ? '\₱${_item.price!.toStringAsFixed(2)}' : ''}'),
+              subtitle: const Text('Stock:'),
             ),
             const Divider(),
             const SizedBox(height: 16),
-            const Text('Price:', style: TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Text(
               _item.price != null
-                  ? '\₱${_item.price!.toStringAsFixed(2)}'
+                  ? '\Price: ₱${_item.price!.toStringAsFixed(2)}'
                   : '—',
               style: const TextStyle(fontSize: 40),
             ),
+            const SizedBox(height: 16),
+            const SizedBox(height: 8),
+            Text(_item.type == 'qr'
+                ? 'QR Code: ${_item.code}'
+                : 'BarCode: ${_item.code}'),
             const SizedBox(height: 16),
             const Text('Description:',
                 style: TextStyle(fontWeight: FontWeight.bold)),
