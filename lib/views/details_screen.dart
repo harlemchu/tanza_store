@@ -83,27 +83,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Center(
-            //   child: Container(
-            //     width: 200,
-            //     height: 200,
-            //     decoration: BoxDecoration(
-            //       border: Border.all(
-            //         color: Colors.blue,
-            //         width: 1,
-            //       ),
-            //       borderRadius: BorderRadius.circular(12),
-            //     ),
-            //     child: Image.asset(
-            //       'assets/images/my_image.png',
-            //       width: 500,
-            //       height: 500,
-            //       fit: BoxFit.cover,
-            //       errorBuilder: (context, error, stackTrace) =>
-            //           const Icon(Icons.error),
-            //     ),
-            //   ),
-            // ),
             const Divider(),
             ListTile(
               leading: Container(
@@ -113,7 +92,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   border: Border.all(color: Colors.blue, width: 1),
                 ),
                 child: Image.asset(
-                  'assets/images/my_image.png',
+                  'assets/' + _item.name + '.png',
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) =>
                       const Icon(Icons.image_not_supported),

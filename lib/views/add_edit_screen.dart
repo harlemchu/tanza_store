@@ -115,57 +115,117 @@ class _AddEditScreenState extends State<AddEditScreen> {
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (!widget.isEditing) ...[
-                Text('Code: ${widget.code}'),
-                const SizedBox(height: 8),
-                Text('Type: ${widget.type.toUpperCase()}'),
-                const Divider(),
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (!widget.isEditing) ...[
+                  Text('Code: ${widget.code}'),
+                  const SizedBox(height: 8),
+                  Text('Type: ${widget.type.toUpperCase()}'),
+                  const Divider(),
+                ],
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    hintText: 'e.g., Product Name',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide:
+                          BorderSide(color: Colors.blue.shade700, width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 16),
+                  ),
+                  validator: (val) =>
+                      val == null || val.isEmpty ? 'Enter a name' : null,
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _priceController,
+                  decoration: InputDecoration(
+                    labelText: 'Price',
+                    hintText: 'e.g., 19.99',
+                    prefixText: '\₱ ',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide:
+                          BorderSide(color: Colors.blue.shade700, width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 16),
+                  ),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                  validator: (val) {
+                    if (val == null || val.isEmpty) return null; // optional
+                    final parsed = double.tryParse(val);
+                    if (parsed == null) return 'Enter a valid number';
+                    if (parsed < 0) return 'Price cannot be negative';
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _descController,
+                  decoration: InputDecoration(
+                    labelText: 'Description',
+                    hintText: 'Additional info',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide:
+                          BorderSide(color: Colors.blue.shade700, width: 2),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(color: Colors.grey.shade400),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 16),
+                  ),
+                  maxLines: 2,
+                ),
+                const SizedBox(height: 24),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _save,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue, // button background
+                      foregroundColor: Colors.white, // text/icon color
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 12),
+                      textStyle: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(widget.isEditing ? 'Update' : 'Save'),
+                  ),
+                )
               ],
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                  hintText: 'e.g., Product Name',
-                ),
-                validator: (val) =>
-                    val == null || val.isEmpty ? 'Enter a name' : null,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _priceController,
-                decoration: const InputDecoration(
-                  labelText: 'Price',
-                  hintText: 'e.g., 19.99',
-                  prefixText: '\₱ ',
-                ),
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                validator: (val) {
-                  if (val == null || val.isEmpty) return null; // optional
-                  final parsed = double.tryParse(val);
-                  if (parsed == null) return 'Enter a valid number';
-                  if (parsed < 0) return 'Price cannot be negative';
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _descController,
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  hintText: 'Additional info',
-                ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: _save,
-                child: Text(widget.isEditing ? 'Update' : 'Save'),
-              ),
-            ],
+            ),
           ),
         ),
       ),
