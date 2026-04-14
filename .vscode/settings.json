@@ -1,3 +1,5 @@
 {
-    "dineug.erd-editor.theme.appearance": "light"
+    "dineug.erd-editor.theme.appearance": "light",
+    "avdmanager.sdkPath": "c:\\Users\\ACER\\AppData\\Local\\Android\\Sdk",
+    "avdmanager.emulator": "c:\\Users\\ACER\\AppData\\Local\\Android\\Sdk\\emulator\\emulator.exe"
 }

@@ -81,6 +81,17 @@ class _ScanScreenState extends State<ScanScreen> {
       appBar: AppBar(
         title: const Text('Scan Code'),
         actions: [
+          // IconButton(
+          //   icon: const Icon(Icons.image_search),
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //           builder: (_) => const ImageRecognitionScreen()),
+          //     );
+          //   },
+          //   tooltip: 'Image Recognition',
+          // ),
           // Torch button with state listener
           ValueListenableBuilder(
             valueListenable: _controller.torchState,
