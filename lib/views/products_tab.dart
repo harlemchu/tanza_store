@@ -763,14 +763,14 @@ class _ProductsTabState extends State<ProductsTab> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Syncing Products'),
+        return const AlertDialog(
+          title: Text('Syncing Products'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const CircularProgressIndicator(),
-              const SizedBox(height: 16),
-              const Text('Downloading product updates...'),
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text('Downloading product updates...'),
             ],
           ),
         );
@@ -1038,13 +1038,9 @@ class _ProductsTabState extends State<ProductsTab> {
                                             borderRadius:
                                                 BorderRadius.circular(5),
                                           ),
-                                          child: Icon(
-                                            item.type == 'qr'
-                                                ? Icons.qr_code_scanner
-                                                : Icons.barcode_reader,
-                                            color: item.type == 'qr'
-                                                ? Colors.blue.shade700
-                                                : Colors.green.shade700,
+                                          child: const Icon(
+                                            Icons
+                                                .production_quantity_limits_outlined,
                                             size: 28,
                                           ),
                                         ),
@@ -1064,14 +1060,35 @@ class _ProductsTabState extends State<ProductsTab> {
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               if (item.price != null) ...[
-                                                const SizedBox(height: 4),
-                                                Text(
-                                                  'Price: ₱${item.price!.toStringAsFixed(2)}',
-                                                  style: const TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.green,
-                                                  ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      'Price: ₱${item.price!.toStringAsFixed(2)} ${item.stock}',
+                                                      style: const TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.green,
+                                                      ),
+                                                    ),
+                                                    const Text(
+                                                      ' | ',
+                                                      style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Stock:  ${item.stock}',
+                                                      style: const TextStyle(
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ],
@@ -1092,40 +1109,40 @@ class _ProductsTabState extends State<ProductsTab> {
                 ),
               ],
             ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            heroTag: 'scan',
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ScanScreen()),
-              );
-              if (result == true && mounted) _loadCodes();
-            },
-            child: const Icon(Icons.qr_code_scanner),
-          ),
-          const SizedBox(height: 16),
-          FloatingActionButton(
-            heroTag: 'add',
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => const AddEditScreen(
-                    code: '',
-                    type: 'barcode',
-                    isEditing: false,
-                  ),
-                ),
-              );
-              if (result == true && mounted) _loadCodes();
-            },
-            child: const Icon(Icons.add),
-          ),
-        ],
-      ),
+      // floatingActionButton: Column(
+      // mainAxisAlignment: MainAxisAlignment.end,
+      // children: [
+      //   FloatingActionButton(
+      //     heroTag: 'scan',
+      //     onPressed: () async {
+      //       final result = await Navigator.push(
+      //         context,
+      //         MaterialPageRoute(builder: (_) => const ScanScreen()),
+      //       );
+      //       if (result == true && mounted) _loadCodes();
+      //     },
+      //     child: const Icon(Icons.qr_code_scanner),
+      //   ),
+      //   const SizedBox(height: 16),
+      //   FloatingActionButton(
+      //     heroTag: 'add',
+      //     onPressed: () async {
+      //       final result = await Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (_) => const AddEditScreen(
+      //             code: '',
+      //             type: 'barcode',
+      //             isEditing: false,
+      //           ),
+      //         ),
+      //       );
+      //       if (result == true && mounted) _loadCodes();
+      //     },
+      //     child: const Icon(Icons.add),
+      //   ),
+      // ],
+      // ),
     );
   }
 }

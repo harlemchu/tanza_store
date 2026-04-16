@@ -1,8 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tanza_store/services/sync_service.dart';
+import 'package:tanza_store/views/history_screen.dart';
+import 'package:tanza_store/views/scan_screen.dart';
+import 'package:tanza_store/views/cashier_screen.dart';
 import 'package:tanza_store/views/products_tab.dart';
 import 'views/analytics_screen.dart';
 // Import the generated file
@@ -26,20 +30,17 @@ void main() async {
       final syncService = SyncService();
       final uploaded = await syncService.pushAllProductsToFirestore();
       if (uploaded > 0) {
-        print('Seeded $uploaded products to Firestore');
+        if (kDebugMode) {
+          print('Seeded $uploaded products to Firestore');
+        }
         await prefs.setBool('has_seeded_firestore', true);
       }
     } catch (e) {
-      print('Auto‑seed skipped or failed: $e');
+      if (kDebugMode) {
+        print('Auto‑seed skipped or failed: $e');
+      }
     }
   }
-  // WidgetsFlutterBinding.ensureInitialized();
-  // // Initialize Firebase
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -69,6 +70,9 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _tabs = [
     const ProductsTab(),
+    const CashierScreen(),
+    const ScanScreen(),
+    const HistoryScreen(),
     const AnalyticsScreen(),
   ];
 
@@ -85,6 +89,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _tabs[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         onTap: (index) {
           setState(() {
@@ -97,9 +102,14 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Products',
           ),
           BottomNavigationBarItem(
+              icon: Icon(Icons.point_of_sale), label: 'Cashier'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.qr_code_2_outlined), label: 'Scan'),
+          BottomNavigationBarItem(icon: Icon(Icons.history), label: 'History'),
+          BottomNavigationBarItem(
             icon: Icon(Icons.analytics),
             label: 'Analytics',
-          ),
+          )
         ],
       ),
     );

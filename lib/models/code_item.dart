@@ -1,10 +1,11 @@
 class CodeItem {
   int? id;
   final String code;
-  final String type; // 'barcode' or 'qr'
+  final String type;
   String name;
   String description;
-  double? price; // <-- new field, nullable
+  double? price;
+  int stock; // new field
   final DateTime createdAt;
 
   CodeItem({
@@ -13,7 +14,8 @@ class CodeItem {
     required this.type,
     required this.name,
     required this.description,
-    required this.price, // <-- added
+    this.price,
+    this.stock = 0, // default 0
     required this.createdAt,
   });
 
@@ -25,6 +27,7 @@ class CodeItem {
       'name': name,
       'description': description,
       'price': price,
+      'stock': stock, // added
       'createdAt': createdAt.toIso8601String(),
     };
   }
@@ -36,9 +39,8 @@ class CodeItem {
       type: map['type'],
       name: map['name'],
       description: map['description'],
-      price: map['price'] != null
-          ? (map['price'] as num).toDouble()
-          : null, // <-- handle null
+      price: map['price'] != null ? (map['price'] as num).toDouble() : null,
+      stock: map['stock'] ?? 0, // handle old records
       createdAt: DateTime.parse(map['createdAt']),
     );
   }

@@ -147,6 +147,7 @@ class SyncService {
       final String type = data['type'] ?? 'barcode';
       final String description = data['description'] ?? '';
       final double price = (data['price'] as num?)?.toDouble() ?? 0.0;
+      final int stock = (data['stock'] as int?) ?? 0;
       final String createdAtStr =
           data['createdAt'] ?? DateTime.now().toIso8601String();
       final DateTime createdAt =
@@ -163,6 +164,7 @@ class SyncService {
           name: name,
           description: description,
           price: price,
+          stock: stock,
           createdAt: createdAt,
         );
         await _dbHelper.insertCode(newItem);
@@ -185,6 +187,7 @@ class SyncService {
             name: name,
             description: description,
             price: price,
+            stock: stock,
             createdAt: createdAt,
           );
           await _dbHelper.updateCode(updatedItem);

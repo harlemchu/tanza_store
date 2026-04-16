@@ -92,10 +92,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   border: Border.all(color: Colors.blue, width: 1),
                 ),
                 child: Image.asset(
-                  'assets/' + _item.name + '.png',
+                  'assets/9970352.png',
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Icon(Icons.image_not_supported),
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    color: Colors.grey[200],
+                    child: const Icon(Icons.production_quantity_limits_rounded,
+                        size: 40),
+                  ),
                 ),
               ),
               title: Text(
@@ -103,7 +106,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 style:
                     const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              subtitle: const Text('Stock:'),
             ),
             const Divider(),
             const SizedBox(height: 16),
@@ -115,13 +117,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
               style: const TextStyle(fontSize: 40),
             ),
             const SizedBox(height: 16),
+            Text(
+              _item.type == 'qr'
+                  ? 'QR Code: ${_item.code}'
+                  : 'BarCode: ${_item.code}',
+              style: const TextStyle(fontSize: 18),
+            ),
             const SizedBox(height: 8),
-            Text(_item.type == 'qr'
-                ? 'QR Code: ${_item.code}'
-                : 'BarCode: ${_item.code}'),
+            Text(
+              'Stock: ${_item.stock} pc${_item.stock > 1 ? 's' : ''}',
+              style: const TextStyle(fontSize: 18),
+            ),
             const SizedBox(height: 16),
             const Text('Description:',
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
             Text(_item.description.isEmpty ? '—' : _item.description),
             const Spacer(),

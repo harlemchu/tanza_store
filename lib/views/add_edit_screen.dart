@@ -25,6 +25,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
   late TextEditingController _nameController;
   late TextEditingController _descController;
   late TextEditingController _priceController;
+  late TextEditingController _stockController;
 
   @override
   void initState() {
@@ -38,6 +39,8 @@ class _AddEditScreenState extends State<AddEditScreen> {
             ? widget.existingItem!.price.toString()
             : '',
       );
+      _stockController =
+          TextEditingController(text: widget.existingItem!.stock.toString());
     } else {
       _nameController = TextEditingController();
       _descController = TextEditingController();
@@ -45,6 +48,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
       if (widget.code.isNotEmpty) {
         _nameController.text = widget.code;
       }
+      _stockController = TextEditingController(text: '0');
     }
   }
 
@@ -53,6 +57,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
     _nameController.dispose();
     _descController.dispose();
     _priceController.dispose(); // <-- dispose
+    _stockController.dispose();
     super.dispose();
   }
 
@@ -78,7 +83,14 @@ class _AddEditScreenState extends State<AddEditScreen> {
         return;
       }
     }
-
+    // Parse stock (must be before using it)
+    final stock = int.tryParse(_stockController.text.trim()) ?? 0;
+    if (stock < 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Stock cannot be negative')),
+      );
+      return;
+    }
     final db = DatabaseHelper();
     if (widget.isEditing && widget.existingItem != null) {
       final updated = CodeItem(
@@ -88,6 +100,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
         name: _nameController.text.trim(),
         description: _descController.text.trim(),
         price: price, // <-- include price
+        stock: stock,
         createdAt: widget.existingItem!.createdAt,
       );
       await db.updateCode(updated);
@@ -98,6 +111,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
         name: _nameController.text.trim(),
         description: _descController.text.trim(),
         price: price, // <-- include price
+        stock: stock,
         createdAt: DateTime.now(),
       );
       await db.insertCode(newItem);
@@ -179,6 +193,22 @@ class _AddEditScreenState extends State<AddEditScreen> {
                     final parsed = double.tryParse(val);
                     if (parsed == null) return 'Enter a valid number';
                     if (parsed < 0) return 'Price cannot be negative';
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _stockController,
+                  decoration: const InputDecoration(
+                    labelText: 'Stock Quantity',
+                    hintText: 'e.g., 100',
+                  ),
+                  keyboardType: TextInputType.number,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) return null;
+                    final num = int.tryParse(val);
+                    if (num == null) return 'Enter a valid number';
+                    if (num < 0) return 'Stock cannot be negative';
                     return null;
                   },
                 ),
