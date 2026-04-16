@@ -1,11 +1,45 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:tanza_store/views/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tanza_store/services/sync_service.dart';
+import 'package:tanza_store/views/products_tab.dart';
 import 'views/analytics_screen.dart';
+// Import the generated file
+import 'firebase_options.dart';
 
-void main() {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+void main() async {
+  // 1. Ensure Flutter binding is initialized
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+
+  // 2. Preserve the native splash screen
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // 3. Initialize Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  final prefs = await SharedPreferences.getInstance();
+  final hasSeeded = prefs.getBool('has_seeded_firestore') ?? false;
+  if (!hasSeeded) {
+    try {
+      final syncService = SyncService();
+      final uploaded = await syncService.pushAllProductsToFirestore();
+      if (uploaded > 0) {
+        print('Seeded $uploaded products to Firestore');
+        await prefs.setBool('has_seeded_firestore', true);
+      }
+    } catch (e) {
+      print('Auto‑seed skipped or failed: $e');
+    }
+  }
+  // WidgetsFlutterBinding.ensureInitialized();
+  // // Initialize Firebase
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const MyApp());
 }
 
@@ -41,7 +75,6 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    // Remove native splash after first frame is rendered
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FlutterNativeSplash.remove();
     });

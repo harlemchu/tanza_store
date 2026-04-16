@@ -16,3 +16,18 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+buildscript {
+    ext.kotlin_version = '2.0.20'   // or latest stable, but keep compatible
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Update AGP to 8.9.1 or higher (8.9.1 is recommended)
+        classpath 'com.android.tools.build:gradle:8.9.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // Keep the Firebase plugin if you have it
+        classpath 'com.google.gms:google-services:4.4.2'
+    }
+}
