@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../controllers/database_helper.dart';
-import 'add_edit_screen.dart';
-import 'details_screen.dart';
+import '../views/add_edit_screen.dart';
+import '../views/details_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   final bool isCashierMode;

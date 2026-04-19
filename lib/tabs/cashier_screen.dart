@@ -3,7 +3,7 @@ import '../models/code_item.dart';
 import '../models/cart_item.dart';
 import '../controllers/database_helper.dart';
 import 'scan_screen.dart';
-import 'cart_screen.dart';
+import '../views/cart_screen.dart';
 
 class CashierScreen extends StatefulWidget {
   const CashierScreen({super.key});
@@ -109,23 +109,6 @@ class _CashierScreenState extends State<CashierScreen> {
     });
   }
 
-  // Scan a barcode and add the product
-  // Future<void> _scanAndAdd() async {
-  //   final scannedCode = await Navigator.push<String>(
-  //     context,
-  //     MaterialPageRoute(builder: (_) => const ScanScreen()),
-  //   );
-  //   if (scannedCode != null && scannedCode.isNotEmpty) {
-  //     final product = await DatabaseHelper().getCodeByCode(scannedCode);
-  //     if (product != null) {
-  //       _addToCart(product);
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //         const SnackBar(content: Text('Product not found in database')),
-  //       );
-  //     }
-  //   }
-  // }
   Future<void> _scanAndAdd() async {
     final result = await Navigator.push(
       context,
