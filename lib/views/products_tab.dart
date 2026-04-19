@@ -1063,7 +1063,7 @@ class _ProductsTabState extends State<ProductsTab> {
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      'Price: ₱${item.price!.toStringAsFixed(2)} ${item.stock}',
+                                                      'Price: ₱${item.price!.toStringAsFixed(2)}',
                                                       style: const TextStyle(
                                                         fontSize: 13,
                                                         fontWeight:

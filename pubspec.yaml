@@ -79,7 +79,7 @@ dev_dependencies:
     sdk: flutter
 
   
-  # flutter_launcher_icons: ^0.13.1   # Use latest version
+  flutter_launcher_icons: ^0.13.1   # Use latest version
   # flutter_launcher_icons:
   # android: true
   # ios: true
@@ -93,7 +93,26 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
-
+  
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/icon.png"
+  adaptive_icon_background: "#1976D2"
+  # adaptive_icon_foreground: "assets/icon/foreground.png"
+  min_sdk_android: 21
+  # web:
+  #   generate: true
+  #   image_path: "assets/icon/app_icon.png"
+  #   background_color: "#1976D2"
+  #   theme_color: "#1976D2"
+  # windows:
+  #   generate: true
+  #   image_path: "assets/icon/app_icon.png"
+  #   icon_size: 48
+  # macos:
+  #   generate: true
+  #   image_path: "assets/icon/app_icon.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
