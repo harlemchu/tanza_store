@@ -1,9 +1,11 @@
 import 'dart:developer';
+import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:flutter/material.dart';
 import 'package:tanza_store/models/code_item.dart';
 import 'package:tanza_store/models/product_transaction.dart';
+import 'package:tanza_store/utils/constants.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -22,7 +24,7 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDB() async {
-    String path = join(await getDatabasesPath(), 'codes.db');
+    String path = join(await getDatabasesPath(), AppConstants.dbName);
     return await openDatabase(
       path,
       version: 4, // Incremented to trigger onUpgrade
