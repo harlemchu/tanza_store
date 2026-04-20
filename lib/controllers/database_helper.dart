@@ -108,13 +108,13 @@ class DatabaseHelper {
 
   Future<void> insertTransaction(ProductTransaction transaction) async {
     final db = await database;
-    await db.insert('transactions', transaction.toMap());
+    await db.insert(AppConstants.transactionsTable, transaction.toMap());
   }
 
   Future<List<ProductTransaction>> getAllTransactions() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps =
-        await db.query('transactions', orderBy: 'createdAt DESC');
+    final List<Map<String, dynamic>> maps = await db
+        .query(AppConstants.transactionsTable, orderBy: 'createdAt DESC');
     return maps.map((map) => ProductTransaction.fromMap(map)).toList();
   }
 

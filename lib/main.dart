@@ -6,6 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tanza_store/services/auth_services.dart';
 import 'package:tanza_store/services/sync_service.dart';
+import 'package:tanza_store/utils/constants.dart';
 import 'package:tanza_store/views/login_screen.dart';
 import 'package:tanza_store/views/tabs/analytics_screen.dart';
 import 'package:tanza_store/views/tabs/cashier_screen.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Tanza Store',
+      title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
       home: const AuthWrapper(),
