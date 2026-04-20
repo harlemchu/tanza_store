@@ -6,12 +6,12 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tanza_store/services/auth_services.dart';
 import 'package:tanza_store/services/sync_service.dart';
-import 'package:tanza_store/tabs/history_screen.dart';
 import 'package:tanza_store/views/login_screen.dart';
-import 'package:tanza_store/tabs/scan_screen.dart';
-import 'package:tanza_store/tabs/cashier_screen.dart';
-import 'package:tanza_store/tabs/products_tab.dart';
-import 'tabs/analytics_screen.dart';
+import 'package:tanza_store/views/tabs/analytics_screen.dart';
+import 'package:tanza_store/views/tabs/cashier_screen.dart';
+import 'package:tanza_store/views/tabs/history_screen.dart';
+import 'package:tanza_store/views/tabs/products_tab.dart';
+import 'package:tanza_store/views/tabs/scan_screen.dart';
 // Import the generated file
 import 'firebase_options.dart';
 

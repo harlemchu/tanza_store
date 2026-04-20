@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../controllers/database_helper.dart';
-import '../models/code_item.dart';
-import '../widgets/stat_card.dart';
+import 'package:tanza_store/controllers/database_helper.dart';
+import 'package:tanza_store/models/code_item.dart';
+import 'package:tanza_store/widgets/stat_card.dart';
 
 class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});

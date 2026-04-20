@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/code_item.dart';
-import '../models/cart_item.dart';
-import '../controllers/database_helper.dart';
-import 'scan_screen.dart';
-import '../views/cart_screen.dart';
+import 'package:tanza_store/controllers/database_helper.dart';
+import 'package:tanza_store/models/cart_item.dart';
+import 'package:tanza_store/models/code_item.dart';
+import 'package:tanza_store/views/cart_screen.dart';
+import 'package:tanza_store/views/tabs/scan_screen.dart';
 
 class CashierScreen extends StatefulWidget {
   const CashierScreen({super.key});

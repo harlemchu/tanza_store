@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../controllers/database_helper.dart';
-import '../models/code_item.dart';
+import 'package:tanza_store/controllers/database_helper.dart';
+import 'package:tanza_store/models/code_item.dart';
 
 class AddEditScreen extends StatefulWidget {
   final String code;

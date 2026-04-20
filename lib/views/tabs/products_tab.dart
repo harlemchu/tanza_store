@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tanza_store/controllers/database_helper.dart';
+import 'package:tanza_store/models/code_item.dart';
 import 'package:tanza_store/services/auth_services.dart';
+import 'package:tanza_store/services/sync_service.dart';
+import 'package:tanza_store/views/add_edit_screen.dart';
+import 'package:tanza_store/views/details_screen.dart';
 import 'package:tanza_store/views/login_screen.dart';
-import '../controllers/database_helper.dart';
-import '../models/code_item.dart';
-import '../views/add_edit_screen.dart';
-import '../views/details_screen.dart';
-import 'scan_screen.dart';
-import '../widgets/stat_card.dart';
-import '../services/sync_service.dart';
+import 'package:tanza_store/views/tabs/scan_screen.dart';
+import 'package:tanza_store/widgets/stat_card.dart';
 
 class ProductsTab extends StatefulWidget {
   const ProductsTab({super.key});

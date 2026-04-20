@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import '../controllers/database_helper.dart';
-import '../views/add_edit_screen.dart';
-import '../views/details_screen.dart';
+import 'package:tanza_store/controllers/database_helper.dart';
+import 'package:tanza_store/views/add_edit_screen.dart';
+import 'package:tanza_store/views/details_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   final bool isCashierMode;

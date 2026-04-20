@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../controllers/database_helper.dart';
-import '../models/code_item.dart';
-import 'add_edit_screen.dart';
+import 'package:tanza_store/controllers/database_helper.dart';
+import 'package:tanza_store/models/code_item.dart';
+import 'package:tanza_store/views/add_edit_screen.dart';
 
 class DetailsScreen extends StatefulWidget {
   final CodeItem codeItem;

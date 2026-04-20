@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../controllers/database_helper.dart';
-import '../models/code_item.dart';
+import 'package:tanza_store/controllers/database_helper.dart';
+import 'package:tanza_store/models/code_item.dart';
 
 class SyncService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
