@@ -61,47 +61,46 @@ class AuthService {
   // }
   Future<User?> signInWithFacebook() async {
     try {
-      // Request only valid permissions (public_profile includes picture, id, name, etc.)
-      final LoginResult result = await FacebookAuth.instance.login(
+      final LoginResult result = await _facebookAuth.login(
         permissions: ['public_profile', 'email'],
       );
+      if (result.status != LoginStatus.success) return null;
 
-      if (result.status == LoginStatus.success) {
-        // Fetch user data including profile picture after login
-        final userData = await FacebookAuth.instance.getUserData(
-          fields: "id,name,email,picture.width(500).height(500)",
-        );
+      final userData = await _facebookAuth.getUserData(
+        fields: "id,name,email,picture.width(500).height(500)",
+      );
+      final String? photoUrl = userData['picture']?['data']?['url'];
+      final String? name = userData['name'];
+      final String? email = userData['email'];
 
-        // Extract the picture URL from the response
-        final String? photoUrl = userData['picture']?['data']?['url'];
-        final String? name = userData['name'];
-        final String? email = userData['email'];
+      final OAuthCredential credential = FacebookAuthProvider.credential(
+        result.accessToken!.tokenString,
+      );
 
-        // Create Firebase credential
-        final OAuthCredential credential = FacebookAuthProvider.credential(
-          result.accessToken!.tokenString,
-        );
-
-        // Sign in to Firebase
-        UserCredential userCredential =
-            await _auth.signInWithCredential(credential);
-        User? user = userCredential.user;
-
-        // Update Firebase profile with photo and display name if available
-        if (user != null) {
-          await user.updateDisplayName(name);
-          if (photoUrl != null) {
-            await user.updatePhotoURL(photoUrl);
-          }
-          await user.reload();
-          user = _auth.currentUser;
+      UserCredential userCredential;
+      try {
+        userCredential = await _auth.signInWithCredential(credential);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          // Instead of returning null, throw a meaningful error
+          throw Exception('An account already exists with $email.\n\n'
+              'Please sign in with Google first, then go to Profile Settings to link your Facebook account.');
         }
-        return user;
+        rethrow;
       }
-      return null;
+
+      User? user = userCredential.user;
+      if (user != null) {
+        if (name != null) await user.updateDisplayName(name);
+        if (photoUrl != null) await user.updatePhotoURL(photoUrl);
+        await user.reload();
+        user = _auth.currentUser;
+      }
+      return user;
     } catch (e) {
       debugPrint('Facebook Sign-In error: $e');
-      return null;
+      // Re‑throw the exception so the LoginScreen can display it
+      throw e is Exception ? e : Exception(e.toString());
     }
   }
 
