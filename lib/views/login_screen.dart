@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tanza_store/main.dart';
 import 'package:tanza_store/services/auth_services.dart';
 
@@ -39,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                   debugPrint('Got user: $user');
 
                   // Force navigation even if user is null (for testing)
-                  if (context.mounted) {
+                  if (user != null && context.mounted) {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (_) => const MainScreen()
@@ -53,8 +54,33 @@ class LoginScreen extends StatelessWidget {
                     );
                   }
                 },
-                icon: const Icon(Icons.login),
+                icon: const Icon(
+                  FontAwesomeIcons.google,
+                  color: Colors.white,
+                ),
                 label: const Text('Sign in with Google'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightGreen,
+                  minimumSize: const Size(210, 40),
+                ),
+              ),
+              const SizedBox(height: 8),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final user = await authService.signInWithFacebook();
+                  if (user != null && context.mounted) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MainScreen()),
+                    );
+                  }
+                },
+                icon: const Icon(Icons.facebook),
+                label: const Text('Sign in with Facebook'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightBlue,
+                  minimumSize: const Size(210, 40),
+                ),
               ),
             ],
           ),

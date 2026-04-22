@@ -92,8 +92,8 @@ class _ScanScreenState extends State<ScanScreen> {
           );
           if (shouldAdd == true && mounted) {
             // Stop camera before pushing add screen
-            await _controller.stop();
-            await Future.delayed(const Duration(milliseconds: 150));
+            // await _controller.stop();
+            // await Future.delayed(const Duration(milliseconds: 150));
             if (!mounted) return;
             final result = await Navigator.push(
               context,
